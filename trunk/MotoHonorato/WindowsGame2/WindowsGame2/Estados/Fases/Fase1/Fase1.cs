@@ -20,7 +20,7 @@ namespace MotoGame.Estados.Jogo
         
         SpriteFont arial;
         
-        GameWindow Window;
+        //GameWindow Window;
 
         bool firstTimeMusic = true;
 
@@ -58,7 +58,7 @@ namespace MotoGame.Estados.Jogo
                 firstTimeMusic = false;
             }
 
-            moto1.Update();
+            moto1.Update(gameTime);
 
             if(moto1.Posicao.X > Window.ClientBounds.Width * 2/3 && cenario.limdireita == false)
             {
@@ -66,7 +66,7 @@ namespace MotoGame.Estados.Jogo
 
                 moto1.Posicao = aux;
 
-                aux = new Vector2(moto1.velocidade.X,0);
+                aux = new Vector2(moto1.Velocidade.X,0);
 
                 cenario.Update(gameTime, aux);
                 montanhas.Update(gameTime, aux /4);
@@ -82,7 +82,7 @@ namespace MotoGame.Estados.Jogo
 
                 moto1.Posicao = aux;
 
-                aux = new Vector2(-moto1.velocidade.X, 0);
+                aux = new Vector2(-moto1.Velocidade.X, 0);
 
                 cenario.Update(gameTime, aux);
                 montanhas.Update(gameTime, aux / 4f);
@@ -98,7 +98,7 @@ namespace MotoGame.Estados.Jogo
 
                 moto1.Posicao = aux;
 
-                aux = new Vector2(0, -moto1.velocidade.Y);
+                aux = new Vector2(0, -moto1.Velocidade.Y);
 
                 cenario.Update(gameTime, aux);
                 montanhas.Update(gameTime, aux/4f );
@@ -113,7 +113,7 @@ namespace MotoGame.Estados.Jogo
 
                 moto1.Posicao = aux;
 
-                aux = new Vector2(0, moto1.velocidade.Y);
+                aux = new Vector2(0, moto1.Velocidade.Y);
 
                 cenario.Update(gameTime, aux);
                 montanhas.Update(gameTime, aux/4f );

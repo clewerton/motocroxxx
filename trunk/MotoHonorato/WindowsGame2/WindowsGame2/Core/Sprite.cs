@@ -26,9 +26,33 @@ namespace MotoGame
             {
                 posicao = value;
             }
-
         }
-        public Vector2 velocidade;
+        private Vector2 velocidade;
+        public Vector2 Velocidade
+        {
+            get
+            {
+                return velocidade;
+            }
+            set
+            {
+                velocidade = value;
+            }
+        }
+        public Vector2 Aceleracao
+        {
+            get
+            {
+                return aceleracao;
+            }
+            set
+            {
+                aceleracao = value;
+            }
+        }
+
+        private Vector2 aceleracao;
+
         protected Rectangle origem;
         protected Rectangle destino;
         protected float rotacao;
@@ -72,7 +96,7 @@ namespace MotoGame
         {
             this.textura = textura;
             this.posicao = new Vector2(0, 0);
-            this.velocidade = new Vector2(1, 1);
+            //this.velocidade = new Vector2(1, 1);
             this.origem = new Rectangle(0, 0, 60, 68);
             this.destino = new Rectangle(0, 0, origem.Width, origem.Height);
             this.rotacao = 0;// MathHelper.ToRadians(0);
@@ -116,6 +140,13 @@ namespace MotoGame
                         (direita) ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
                         camada);
             }
+        }
+
+        public void Move(int dx, int dy)
+        {
+            posicao.X += dx;
+            posicao.Y += dy;
+
         }
     }
 }

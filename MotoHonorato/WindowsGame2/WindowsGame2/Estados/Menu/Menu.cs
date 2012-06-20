@@ -16,7 +16,6 @@ namespace MotoGame.Estados.Menu
 {
     class Menu : EstadoBase
     {
-        GameWindow Window;
         KeyboardState teclado_atual;
         Botao botaoIniciar;
         Botao botaoSair;

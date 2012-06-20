@@ -17,7 +17,7 @@ namespace MotoGame
 
         animacao andando;
         animacao correndo;
-        animacao animacao_atual;
+        //animacao animacao_atual;
         //Vector2 gravidade = new Vector2(0,10);
 
         public int pontos = 0;
@@ -29,7 +29,7 @@ namespace MotoGame
         {
             this.Window = Window;
 
-            velocidade = new Vector2(5, 5);
+            //Velocidade = new Vector2(5, 5);
 
             textura = Content.Load<Texture2D>("moto");
 
@@ -55,10 +55,10 @@ namespace MotoGame
 
         }
 
-        public override void Update(GameTime gameTime)
-        {}
+        //public override void Update(GameTime gameTime)
+        //{}
 
-        public void Update()
+        public override void Update(GameTime gameTime)
         {
             //posicao += gravidade;
 
@@ -76,21 +76,31 @@ namespace MotoGame
 
             if (Game1.teclado_atual.IsKeyDown(Keys.Right))
             {
-                posicao.X += velocidade.X;
+                Aceleracao = new Vector2(0.1f, 0);
+                Console.WriteLine("Velocidade antes = " + Velocidade.X + " " + Velocidade.Y);
+                Velocidade += Aceleracao * gameTime.ElapsedGameTime.Milliseconds;
+                configurarVelocidade();
+                Console.WriteLine("Velocidade depois = " + Velocidade.X + " " + Velocidade.Y);
+                posicao += Velocidade;
                 direita = true;
             }
             if (Game1.teclado_atual.IsKeyDown(Keys.Left))
             {
-                posicao.X -= velocidade.X;
-                direita = false;
+                Aceleracao = new Vector2(-0.1f, 0);
+                Console.WriteLine("Velocidade antes = " + Velocidade.X + " " + Velocidade.Y);
+                Velocidade += Aceleracao * gameTime.ElapsedGameTime.Milliseconds;
+                configurarVelocidade();
+                Console.WriteLine("Velocidade depois = " + Velocidade.X + " " + Velocidade.Y);
+                posicao += Velocidade;
+                //direita = false;
             }
             if (Game1.teclado_atual.IsKeyDown(Keys.Up))
             {
-                posicao.Y -= velocidade.Y;
+                posicao.Y -= Velocidade.Y;
             }
             if (Game1.teclado_atual.IsKeyDown(Keys.Down))
             {
-                posicao.Y += velocidade.Y;
+                posicao.Y += Velocidade.Y;
             }
             
             #region manter na tela
@@ -120,6 +130,17 @@ namespace MotoGame
             }
                                     
             #endregion
+        }
+
+        private void configurarVelocidade()
+        {
+            double moduloVelocidade = Math.Sqrt(Velocidade.X * Velocidade.X + Velocidade.Y * Velocidade.Y);
+            double angulo = Math.Atan2(Velocidade.Y, Velocidade.X);
+            //Console.WriteLine("Angulo = " + angulo * 180 / Math.PI);
+            if (moduloVelocidade > 20)
+            {
+                Velocidade = new Vector2(20.0f * (float)Math.Cos(angulo), 20.0f * (float)Math.Sin(angulo));
+            }
         }
 
         /*

@@ -20,7 +20,7 @@ namespace MotoGame.Estados.Menu
         Botao botaoIniciar;
         Botao botaoSair;
         Botao botaoCreditos;
-        public Boolean sair = false;
+        //public Boolean sair = false;
 
         public Menu(ContentManager Content, GameWindow Window):base(Content, Window){
 
@@ -79,13 +79,13 @@ namespace MotoGame.Estados.Menu
             }
             else if (botaoCreditos.selecionada == true)
             {
-                //wsGame1.estado_atual = Game1.Estado.CREDITOS;
+                //Game1.estado_atual = Game1.Estado.CREDITOS;
             }
 
             else if (botaoSair.selecionada == true)
             {
-                sair = true;
-
+                //sair = true;
+                Game1.estado_atual = Game1.Estado.SAIR;
 
             }
 

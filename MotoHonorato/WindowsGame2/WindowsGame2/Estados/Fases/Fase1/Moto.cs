@@ -29,11 +29,10 @@ namespace MotoGame
         {
             this.Window = Window;
 
-            //Velocidade = new Vector2(5, 5);
-
             textura = Content.Load<Texture2D>("moto");
 
-            posicao = new Vector2(200, 300);
+            //posicao = new Vector2(200, 300);
+            Aceleracao = new Vector2(0.01f, 0);
 
             ronco = Content.Load<SoundEffect>("Sounds/SoundEffects/sound_effect");
 
@@ -76,21 +75,18 @@ namespace MotoGame
 
             if (Game1.teclado_atual.IsKeyDown(Keys.Right))
             {
-                Aceleracao = new Vector2(0.1f, 0);
-                Console.WriteLine("Velocidade antes = " + Velocidade.X + " " + Velocidade.Y);
-                Velocidade += Aceleracao * gameTime.ElapsedGameTime.Milliseconds;
+                Posicao += (gameTime.ElapsedGameTime.Milliseconds * (Velocidade + Aceleracao * gameTime.ElapsedGameTime.Milliseconds / 2));
+                Velocidade += (Aceleracao * gameTime.ElapsedGameTime.Milliseconds);
                 configurarVelocidade();
-                Console.WriteLine("Velocidade depois = " + Velocidade.X + " " + Velocidade.Y);
-                posicao += Velocidade;
                 direita = true;
             }
             if (Game1.teclado_atual.IsKeyDown(Keys.Left))
             {
                 Aceleracao = new Vector2(-0.1f, 0);
-                Console.WriteLine("Velocidade antes = " + Velocidade.X + " " + Velocidade.Y);
+                //Console.WriteLine("Velocidade antes = " + Velocidade.X + " " + Velocidade.Y);
                 Velocidade += Aceleracao * gameTime.ElapsedGameTime.Milliseconds;
                 configurarVelocidade();
-                Console.WriteLine("Velocidade depois = " + Velocidade.X + " " + Velocidade.Y);
+                //Console.WriteLine("Velocidade depois = " + Velocidade.X + " " + Velocidade.Y);
                 posicao += Velocidade;
                 //direita = false;
             }

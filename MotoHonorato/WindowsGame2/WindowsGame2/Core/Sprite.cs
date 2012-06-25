@@ -92,10 +92,14 @@ namespace MotoGame
             public int quadro_atual;
         }
 
-        public Sprite(Texture2D textura)
+        public Sprite(Texture2D textura) : this(textura, Vector2.Zero, Vector2.Zero) { }
+
+        public Sprite(Texture2D textura, Vector2 posicao, Vector2 velocidade)
         {
             this.textura = textura;
-            this.posicao = new Vector2(0, 0);
+            this.posicao = posicao;
+            this.velocidade = velocidade;
+            
             //this.velocidade = new Vector2(1, 1);
             this.origem = new Rectangle(0, 0, 60, 68);
             this.destino = new Rectangle(0, 0, origem.Width, origem.Height);
@@ -140,13 +144,6 @@ namespace MotoGame
                         (direita) ? SpriteEffects.None : SpriteEffects.FlipHorizontally,
                         camada);
             }
-        }
-
-        public void Move(int dx, int dy)
-        {
-            posicao.X += dx;
-            posicao.Y += dy;
-
         }
     }
 }

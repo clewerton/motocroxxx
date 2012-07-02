@@ -15,8 +15,9 @@ namespace MotoGame.Estados.Fases.Fase1
     class Fundo
     {
         Texture2D texture;
-        Rectangle origem;
+        public Rectangle origem;
         Rectangle destino;
+
         GameWindow Window;
 
         public Boolean limesqueda = false;

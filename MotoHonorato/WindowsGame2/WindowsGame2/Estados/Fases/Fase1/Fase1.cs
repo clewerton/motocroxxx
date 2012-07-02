@@ -59,69 +59,31 @@ namespace MotoGame.Estados.Jogo
             }
 
             moto1.Update(gameTime);
+            Vector2 aux = new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height/2);
+            moto1.Posicao = aux;
 
-            if(moto1.Posicao.X > Window.ClientBounds.Width * 2/3 && cenario.limdireita == false)
+            if(moto1.Posicao.X >= Window.ClientBounds.Width/2)
             {
-                Vector2 aux = new Vector2(Window.ClientBounds.Width * 2 / 3, moto1.Posicao.Y);
-
-                moto1.Posicao = aux;
-
                 aux = new Vector2(moto1.Velocidade.X,0);
-
-                cenario.Update(gameTime, aux);
-                montanhas.Update(gameTime, aux /4);
-                nuvens.Update(gameTime, aux/5f);
-                arbustos.Update(gameTime, aux);
-
-                Console.WriteLine("moto1.Posicao.X > Window.ClientBounds.Width * 2/3");
             }
 
-            else if (moto1.Posicao.X < Window.ClientBounds.Width * 1 / 3 && cenario.limesqueda == false)
+            else if (moto1.Posicao.X < Window.ClientBounds.Width/2)
             {
-                Vector2 aux = new Vector2(Window.ClientBounds.Width * 1 / 3, moto1.Posicao.Y);
-
-                moto1.Posicao = aux;
-
                 aux = new Vector2(-moto1.Velocidade.X, 0);
-
-                cenario.Update(gameTime, aux);
-                montanhas.Update(gameTime, aux / 4f);
-                nuvens.Update(gameTime, aux / 5f);
-                arbustos.Update(gameTime, aux);
-
-                Console.WriteLine("moto1.Posicao.X > Window.ClientBounds.Width * 2/3");
             }
 
-            if (moto1.Posicao.Y < Window.ClientBounds.Height * 1 / 3 && nuvens.limimitecima == false)
+            if (moto1.Posicao.Y < Window.ClientBounds.Height/2 && nuvens.limimitecima == false)
             {
-                Vector2 aux = new Vector2(moto1.Posicao.X, Window.ClientBounds.Height * 1 /3);
-
-                moto1.Posicao = aux;
-
                 aux = new Vector2(0, -moto1.Velocidade.Y);
-
-                cenario.Update(gameTime, aux);
-                montanhas.Update(gameTime, aux/4f );
-                nuvens.Update(gameTime, aux/5f );
-                arbustos.Update(gameTime, aux);
-
-                Console.WriteLine("moto1.Posicao.X > Window.ClientBounds.Width * 2/3");
             }
-            else if (moto1.Posicao.Y > Window.ClientBounds.Height * 2 / 3 && nuvens.limitebaixo == false)
+            else if (moto1.Posicao.Y > Window.ClientBounds.Height/2 && nuvens.limitebaixo == false)
             {
-                Vector2 aux = new Vector2(moto1.Posicao.X, Window.ClientBounds.Height * 2/3);
-
-                moto1.Posicao = aux;
-
                 aux = new Vector2(0, moto1.Velocidade.Y);
-
-                cenario.Update(gameTime, aux);
-                montanhas.Update(gameTime, aux/4f );
-                nuvens.Update(gameTime, aux/5f );
-                arbustos.Update(gameTime, aux);
-
-                Console.WriteLine("moto1.Posicao.X > Window.ClientBounds.Width * 2/3");
             }
+            cenario.Update(gameTime, aux);
+            montanhas.Update(gameTime, aux / 4f);
+            nuvens.Update(gameTime, aux / 5f);
+            arbustos.Update(gameTime, aux);
 
         }
 

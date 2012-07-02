@@ -18,10 +18,11 @@ namespace MotoGame
         animacao andando;
         animacao correndo;
         //animacao animacao_atual;
-        //Vector2 gravidade = new Vector2(0,10);
+        Vector2 gravidade = new Vector2(0,10);
 
         public int pontos = 0;
-
+        private const float MIN_VELOCIDADE = 1.0f;
+        private Vector2 freio = new Vector2(0.3f, 0);
         
 
         public Moto(ContentManager Content, GameWindow Window)
@@ -31,8 +32,7 @@ namespace MotoGame
 
             textura = Content.Load<Texture2D>("moto");
 
-            //posicao = new Vector2(200, 300);
-            Aceleracao = new Vector2(0.01f, 0);
+            Aceleracao = new Vector2(0.1f, 0);
 
             ronco = Content.Load<SoundEffect>("Sounds/SoundEffects/sound_effect");
 
@@ -59,7 +59,7 @@ namespace MotoGame
 
         public override void Update(GameTime gameTime)
         {
-            //posicao += gravidade;
+            bool acelerando = false;
 
             if (Game1.mouse_atual.LeftButton == ButtonState.Pressed)
             {
@@ -75,20 +75,21 @@ namespace MotoGame
 
             if (Game1.teclado_atual.IsKeyDown(Keys.Right))
             {
-                Posicao += (gameTime.ElapsedGameTime.Milliseconds * (Velocidade + Aceleracao * gameTime.ElapsedGameTime.Milliseconds / 2));
-                Velocidade += (Aceleracao * gameTime.ElapsedGameTime.Milliseconds);
+                acelerando = true;
+                Velocidade += Aceleracao;
+                Posicao += Velocidade;
                 configurarVelocidade();
                 direita = true;
             }
             if (Game1.teclado_atual.IsKeyDown(Keys.Left))
             {
-                Aceleracao = new Vector2(-0.1f, 0);
-                //Console.WriteLine("Velocidade antes = " + Velocidade.X + " " + Velocidade.Y);
-                Velocidade += Aceleracao * gameTime.ElapsedGameTime.Milliseconds;
-                configurarVelocidade();
-                //Console.WriteLine("Velocidade depois = " + Velocidade.X + " " + Velocidade.Y);
-                posicao += Velocidade;
-                //direita = false;
+                acelerando = true;
+                if (Velocidade.Length() > MIN_VELOCIDADE)
+                {
+                    Velocidade -= freio;
+                    configurarVelocidade();
+                    posicao += Velocidade;
+                }
             }
             if (Game1.teclado_atual.IsKeyDown(Keys.Up))
             {
@@ -98,15 +99,13 @@ namespace MotoGame
             {
                 posicao.Y += Velocidade.Y;
             }
-            
-            #region manter na tela
-            
-            //indo pra frente
-            if (posicao.X >= Window.ClientBounds.Width - textura.Width/3)
+            if (!acelerando && (Velocidade.Length() > MIN_VELOCIDADE))
             {
-                posicao.X = Window.ClientBounds.Width - textura.Width/3;
+                Velocidade -= Aceleracao;
             }
 
+            #region manter na tela
+            
             //indo pra trás
             if (posicao.X < 0)
             {

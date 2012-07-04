@@ -29,6 +29,8 @@ namespace MotoGame.Estados.Jogo
         Fundo nuvens;
         Fundo arbustos;
 
+        
+
         public Fase1(ContentManager Content, GameWindow Window)
             :base(Content, Window)
         {
@@ -60,7 +62,7 @@ namespace MotoGame.Estados.Jogo
 
             moto1.Update(gameTime);
             Vector2 aux = new Vector2(Window.ClientBounds.Width / 2, Window.ClientBounds.Height/2);
-            moto1.Posicao = aux;
+            moto1.Posicao = aux ;
 
             if(moto1.Posicao.X >= Window.ClientBounds.Width/2)
             {

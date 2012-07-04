@@ -52,6 +52,7 @@ namespace MotoGame
 
             animacao_atual = andando;
 
+
         }
 
         //public override void Update(GameTime gameTime)
